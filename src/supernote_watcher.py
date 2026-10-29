@@ -480,7 +480,7 @@ def build_remind_block(reminds: list[tuple[str, str]], note_id: str = "") -> str
         parts.append(f"\n> **{text}** — {human}\n>\n> {status}")
     return "\n".join(parts)
 
-# ── //book — search Libgen and list results (download via Discord/PC) ──────────
+# ── //book — ask a pluggable book_grabber engine and list results ───────────────
 # Imported defensively like the other engines. //book only SEARCHES; it lists
 # hits in the note and caches them (book_search_last.json), so the actual
 # download — a real side effect — happens when the user picks a number through
@@ -493,7 +493,7 @@ except Exception as _e:                       # pragma: no cover
 
 
 def build_book_block(books: list[tuple[str | None, str]]) -> str:
-    """Build a 📚 Books section: search Libgen for each query and list hits."""
+    """Build a 📚 Books section from the book_grabber engine, if one is installed."""
     if not books:
         return ""
     if book_grabber is None:
