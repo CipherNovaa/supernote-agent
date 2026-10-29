@@ -1,0 +1,18 @@
+[Unit]
+Description=Supernote Discord feedback listener
+After=network-online.target supernote-watcher.service
+Wants=network-online.target
+StartLimitBurst=5
+StartLimitIntervalSec=120
+
+[Service]
+EnvironmentFile=-%h/.config/supernote-agent/.env
+ExecStart=/usr/bin/python3 -u %h/supernote-agent/src/supernote_feedback.py
+Restart=on-failure
+RestartSec=15
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=supernote-feedback
+
+[Install]
+WantedBy=default.target

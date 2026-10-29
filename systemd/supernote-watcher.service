@@ -1,0 +1,24 @@
+# Install: copy to ~/.config/systemd/user/, adjust the repo path if it is not
+# ~/supernote-agent, then: systemctl --user enable --now supernote-watcher
+[Unit]
+Description=Supernote -> Obsidian conversion watcher
+After=network-online.target syncthing.service ollama.service
+Wants=network-online.target
+# Restart at most 5 times in 2 minutes before giving up
+StartLimitBurst=5
+StartLimitIntervalSec=120
+
+[Service]
+# A user service gets a minimal PATH that omits ~/.local/bin; include it so the
+# optional `hermes` CLI is found (sn_config also resolves it to an absolute path).
+Environment="PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin"
+EnvironmentFile=-%h/.config/supernote-agent/.env
+ExecStart=/usr/bin/python3 -u %h/supernote-agent/src/supernote_watcher.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=supernote-watcher
+
+[Install]
+WantedBy=default.target

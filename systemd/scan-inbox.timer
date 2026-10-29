@@ -1,0 +1,9 @@
+[Unit]
+Description=Poll the scan inbox for page photos to turn into books
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+
+[Install]
+WantedBy=timers.target

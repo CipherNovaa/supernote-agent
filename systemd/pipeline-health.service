@@ -1,0 +1,7 @@
+[Unit]
+Description=Supernote pipeline heartbeat -> Discord
+
+[Service]
+Type=oneshot
+EnvironmentFile=-%h/.config/supernote-agent/.env
+ExecStart=/usr/bin/python3 %h/supernote-agent/src/pipeline_health.py

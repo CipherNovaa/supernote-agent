@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Secrets and local config
+.env
+config.toml
+*.token
+
+# Runtime state / outputs
+*.processed
+*.fails
+*.part
+*.badformat
+*.log
+*.bak*
+.cache/

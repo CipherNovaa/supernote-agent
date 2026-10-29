@@ -1,0 +1,71 @@
+# supernote-agent configuration.
+# Copy to ~/.config/supernote-agent/config.toml (or point $SUPERNOTE_AGENT_CONFIG
+# at it). Every key is optional: anything left out falls back to the defaults
+# in src/sn_config.py. Secrets do NOT go here — see .env.example.
+
+[vault]
+root = "~/Documents/Obsidian Vault"
+
+# Vault-relative folders.
+[dirs]
+inbox           = "Inbox"                      # new notes land here
+academics       = "Knowledge/Academics"
+systems         = "Knowledge/Systems"
+projects        = "Projects"
+source_material = "Knowledge/Source Material"  # //book downloads
+tags            = "Tags"                       # one empty .md per tag = the tag vocabulary
+images          = "Images"                     # page renders go in Images/Supernote/
+supernote_raw   = "Supernote/Raw"              # where Syncthing drops .note files
+pdf_output      = "Supernote/Vault PDFs"       # mirrored back to the device
+
+# Few-shot examples for the formatter: your own well-formatted notes.
+# Absolute/~ paths are used as-is, relative ones are inside the vault.
+# Empty = the academics folder. The repo ships three invented samples:
+# examples_dir = "~/supernote-agent/examples/notes"
+examples_dir = ""
+
+# Which folders are exported to A5 PDFs for reading/annotating on the device.
+[[pdf_areas]]
+source = "Knowledge/Academics"
+out    = "Academics"
+[[pdf_areas]]
+source = "Projects"
+out    = "Projects"
+
+# Auto-filing by tag: the first route whose tags intersect the note's wins.
+[[tag_routes]]
+folder = "Knowledge/Academics/Mathematics"
+tags   = ["math", "arithmetic", "calculus", "physics", "science"]
+[[tag_routes]]
+folder = "Knowledge/Academics/Programming"
+tags   = ["c++", "python", "programming", "code"]
+[[tag_routes]]
+folder = "Projects"
+tags   = ["supernote", "automation", "ai", "project"]
+
+[state]
+dir         = "~/.local/state/supernote-agent"  # style memory, pending threads, glossary
+style_file  = ""    # default <state.dir>/style.md   (start from style.example.md)
+memory_file = ""    # default <state.dir>/memories.md
+
+[ollama]
+url          = "http://localhost:11434"
+text_model   = "qwen3:8b"       # formatting, tags, //ask, intent, feedback → JSON
+vision_model = "qwen2.5vl:7b"   # handwriting fallback when device OCR stalls
+cover_model  = "llava:7b"       # //book from a cover photo
+genre_model  = "qwen3:8b"
+
+[discord]
+hermes_bin = ""   # optional: send via the Hermes Agent CLI instead of the REST API
+
+[scan]
+inbox = "~/scans/inbox"   # one subfolder per book
+done  = "~/scans/done"
+
+[health]
+services         = ["supernote-watcher", "supernote-feedback"]
+syncthing_config = "~/.local/state/syncthing/config.xml"
+backup_repo      = ""     # optional git repo whose last-commit age is reported
+
+[web]
+searx_url = "http://localhost:8888/search"   # optional SearXNG for //learn and //plan

@@ -1,0 +1,7 @@
+[Unit]
+Description=Scan inbox -> annotatable Supernote PDFs
+
+[Service]
+Type=oneshot
+EnvironmentFile=-%h/.config/supernote-agent/.env
+ExecStart=/usr/bin/python3 %h/supernote-agent/src/scan_to_book.py --inbox

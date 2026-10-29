@@ -1,0 +1,16 @@
+# Core pipeline
+supernotelib>=0.7
+pillow
+numpy
+requests
+# //book
+beautifulsoup4
+lxml
+# vault -> PDF mirror
+markdown
+matplotlib
+weasyprint
+# optional: HEIC phone photos for scan_to_book
+# pillow-heif
+# tools/supernote_screensaver.py
+# PyQt6
