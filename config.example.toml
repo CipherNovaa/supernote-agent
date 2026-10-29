@@ -12,7 +12,7 @@ inbox           = "Inbox"                      # new notes land here
 academics       = "Knowledge/Academics"
 systems         = "Knowledge/Systems"
 projects        = "Projects"
-source_material = "Knowledge/Source Material"  # //book downloads
+source_material = "Knowledge/Source Material"  # reference material
 tags            = "Tags"                       # one empty .md per tag = the tag vocabulary
 images          = "Images"                     # page renders go in Images/Supernote/
 supernote_raw   = "Supernote/Raw"              # where Syncthing drops .note files
@@ -52,7 +52,7 @@ memory_file = ""    # default <state.dir>/memories.md
 url          = "http://localhost:11434"
 text_model   = "qwen3:8b"       # formatting, tags, //ask, intent, feedback → JSON
 vision_model = "qwen2.5vl:7b"   # handwriting fallback when device OCR stalls
-cover_model  = "llava:7b"       # //book from a cover photo
+cover_model  = "llava:7b"       # reads a book cover photo
 genre_model  = "qwen3:8b"
 
 [discord]

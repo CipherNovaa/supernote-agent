@@ -46,7 +46,7 @@ flowchart LR
 - Formats the transcript into clean Obsidian Markdown with a local LLM. This runs automatically when the note contains a `//` command; otherwise the bot asks on Discord and you reply **format** (or **y** / **n**).
 - `//md` asks for a heavier restructure (headings, sections, real lists). If the model drops more than about 40% of the words, it falls back to the conservative formatter.
 - Picks 2 to 4 tags, strongly preferring tags that already exist in the vault, and files the note by tag (routes are set in config). `//file under PATH` overrides the route.
-- Handwritten commands: `//ask`, `//learn` (an explanation in your study style), `//plan` (milestones plus dated Obsidian Tasks checkboxes), `//remind@8:30 text`, `//book query` (plus `//summarize`, `//quiz 3` and `//recall` with an optional engine, see Known issues), formatting (`//h2`, `//todo`, `//math`…) and metadata (`//title is`, `//tag as`, `//link to`). Any other `//` line is sent to the LLM, which works out what was meant and routes it, so nothing you write is silently dropped.
+- Handwritten commands: `//ask`, `//learn` (an explanation in your study style), `//plan` (milestones plus dated Obsidian Tasks checkboxes), `//remind@8:30 text` (plus `//summarize`, `//quiz 3` and `//recall` with an optional engine, see Known issues), formatting (`//h2`, `//todo`, `//math`…) and metadata (`//title is`, `//tag as`, `//link to`). Any other `//` line is sent to the LLM, which works out what was meant and routes it, so nothing you write is silently dropped.
 - Re-syncs update the note in place. Everything above a `<!-- sn:end -->` marker belongs to the pipeline; anything you type below it in Obsidian survives every re-sync.
 - Photos sent to the bot with the caption `scan <name>` are collected into a book and turned into one clean multi-page PDF that syncs back to the tablet, so you can write in it.
 - Selected vault folders are mirrored back to the tablet as A5 PDFs (LaTeX rendered, callouts flattened, colour emoji replaced) for reading and annotating.
@@ -130,7 +130,7 @@ src/
   ocr_corrections.py     the learned handwriting glossary
   learn_explain.py       //learn engine      idea_plan.py   //plan engine
   reminder_set.py        //remind engine (scheduled through Hermes Agent's cron)
-  book_grabber.py        //book engine       scan_to_book.py  photos → PDF book
+  scan_to_book.py        photos → PDF book
   vault_to_pdf.py        vault → A5 PDFs     pipeline_health.py  daily heartbeat
 tools/supernote_screensaver.py   PyQt6 e-ink screensaver maker
 skills/supernote-feedback/       Hermes Agent skill for the same feedback loop
@@ -145,7 +145,6 @@ style.example.md                 the style-file format
 - The watcher's LLM tag actions still edit a legacy `Tags:` body line, but notes now keep tags in frontmatter `topics:`. Tag edits through the deterministic handler work; through the LLM path they currently don't take effect.
 - `//recall`, `//quiz` and `//summarize` call an optional `claude_powers` module that isn't included (it was tied to the author's vault layout). Until one is supplied, they report "unavailable".
 - `//remind` needs the Hermes Agent CLI (`hermes cron`).
-- `book_grabber.py` searches Library Genesis mirrors. Use it only for books you have the right to download.
 
 ## Credits and licence
 

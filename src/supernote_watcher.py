@@ -497,8 +497,8 @@ def build_book_block(books: list[tuple[str | None, str]]) -> str:
     if not books:
         return ""
     if book_grabber is None:
-        return ("\n\n## 📚 Books\n\n> _(book grabber unavailable — "
-                "check src/book_grabber.py)_")
+        return ("\n\n## 📚 Books\n\n> _(no book engine installed — "
+                "plug one in as a `book_grabber` module)_")
     parts = ["\n\n## 📚 Books"]
     for ext, query in books:
         print(f"[//book] searching {query!r} ext={ext}")
