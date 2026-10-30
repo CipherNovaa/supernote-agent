@@ -73,7 +73,7 @@ The interesting parts are the failure modes the tablet and the models threw up, 
 
 **Scans stay gentle.** `scan_to_book` auto-orients, autocontrasts, lightly sharpens and caps the long edge at 2200 px. It deliberately doesn't binarise, so diagrams and grey shading survive. A book is built only after its newest photo is 90 s old, so a batch still arriving isn't cut in half. Only photos captioned `scan …` (or follow-up photos while a scan is open) become pages; a stray photo is left alone.
 
-## Workflow for this Project
+## Workflow for this project
 
 - Built with a Cloud model, working against the live system: it ran every `//` command through the real parser and a live Ollama to prove the engines worked. That isolated "commands do nothing" to input fidelity, and the OCR-prefix normaliser was then written from the actual strings the device produced.
 - Debugging by instrumenting the artefact rather than guessing: the "empty note" case was solved by rendering each layer of the `.note` separately (handwriting 324 bytes, template 227 KB), which led to the render-based ink check.
